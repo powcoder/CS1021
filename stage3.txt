@@ -1,0 +1,57 @@
+https://powcoder.com
+代写代考加微信 powcoder
+Assignment Project Exam Help
+Add WeChat powcoder
+https://powcoder.com
+代写代考加微信 powcoder
+Assignment Project Exam Help
+Add WeChat powcoder
+@ stage 3
+.section .text
+.align 2
+.global _start
+
+_start:
+    mov r4, #12  @ r4 stores the next value that is multiple of 3
+    
+    mov r2, #10  @ r2 is the counter and initialized with 10
+
+loop:
+    tst r2, #7  @ if(r2 & 0b111 == 0) then r2 is multiple of 8
+    bne cont    @ not multiple of 8
+    cmp r2, r4  
+    beq both8And3  @ both multiple of 8 and 3
+    ldr r3, =0xffff
+    b callOutput
+
+both8And3:
+    add r4, r4, #3   @ set r4 to next multiple of 3
+    ldr r3, =0xffbb  @ set to 0xffbb when multiple of 8 and 3
+    b callOutput
+
+# not multiple of 8
+cont:
+    cmp r2, r4
+    beq mult3    @ multiple of 3
+    mov r3, r2   @ set to counter when not multiple of 8 and not multiple of 3
+    b callOutput
+
+mult3:
+    add r4, r4, #3  @ set r4 to next multiple of 3
+    ldr r3, =0xbbbb @ set to 0xbbbb when multiple of 3
+    b callOutput
+
+callOutput:
+    bl output   @ call output
+    add r2, r2, #1  @ increase counter by 1
+    cmp r2, #50
+    ble loop    @ continue loop when counter <= 50
+end:
+    b end   @  infinite loop
+
+
+output:
+    bx lr   @  just return
+
+
+
